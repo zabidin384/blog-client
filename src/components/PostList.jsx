@@ -28,7 +28,7 @@ const PostList = () => {
 	const allPosts = data?.pages?.flatMap((page) => page?.posts) || [];
 
 	if (data.pages[0].posts.length === 0) {
-		return <p className="text-center font-semibold mt-8 md:text-lg">No post available!</p>;
+		return <p className="text-center mt-16 md:text-lg">No post available!</p>;
 	}
 
 	return (
