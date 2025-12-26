@@ -22,7 +22,7 @@ const PostList = () => {
 		getNextPageParam: (lastPage, pages) => (lastPage?.hasMore ? pages.length + 1 : undefined),
 	});
 
-	if (isLoading) return <p>Loading...</p>;
+	if (isLoading) return <p className="text-center mt-16 md:text-lg">Loading...</p>;
 	if (error) return "An error has occurred: " + error.message;
 
 	const allPosts = data?.pages?.flatMap((page) => page?.posts) || [];

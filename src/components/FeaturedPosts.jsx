@@ -12,7 +12,7 @@ const fetchData = async () => {
 const FeaturedPosts = () => {
 	const { isPending, error, data } = useQuery({ queryKey: ["featuredPosts"], queryFn: () => fetchData() });
 
-	if (isPending) return "Loading...";
+	if (isPending) return "";
 	if (error) return "An error has occurred: " + error.message;
 
 	const posts = data.posts;
