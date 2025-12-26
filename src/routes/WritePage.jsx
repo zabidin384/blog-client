@@ -11,7 +11,7 @@ import { categories } from "../data";
 
 const WritePage = () => {
 	const { getToken } = useAuth();
-	const { isLoaded, isSignedIn, user } = useUser();
+	const { isLoaded, user } = useUser();
 	const navigate = useNavigate();
 	const role = user?.publicMetadata?.role;
 
@@ -44,7 +44,7 @@ const WritePage = () => {
 		return <div className="w-full h-[80vh] flex justify-center items-center md:text-lg">Loading...</div>;
 	}
 
-	if (isLoaded && !isSignedIn && role !== "admin") {
+	if (isLoaded && role !== "admin") {
 		return <div className="w-full h-[80vh] flex justify-center items-center md:text-lg">You should login as author!</div>;
 	}
 
