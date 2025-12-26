@@ -53,9 +53,8 @@ const Upload = ({ children, type, setProgress, setData }) => {
 				onProgress: (event) => setProgress((event.loaded / event.total) * 100),
 			});
 			if (uploadResponse.thumbnailUrl) {
-				console.log("Upload response:", uploadResponse);
 				setData(uploadResponse);
-				// toast.success("Cover image uploaded successfully!");
+				toast.success("Cover image uploaded successfully!");
 			}
 		} catch (error) {
 			if (error instanceof ImageKitAbortError) {
@@ -74,13 +73,6 @@ const Upload = ({ children, type, setProgress, setData }) => {
 
 	return (
 		<div className="">
-			{/* {data.length > 0 ? (
-				<img src={data} alt="" className="w-[250px] h-fit" />
-			) : (
-				<button type="button" className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
-					Add a cover image
-				</button>
-			)} */}
 			<input type="file" ref={fileInputRef} accept={`${type}/*`} className="hidden" onChange={handleUpload} />
 			<div className="cursor-pointer" onClick={() => fileInputRef.current.click()}>
 				{children}
