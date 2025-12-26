@@ -11,8 +11,8 @@ const Navbar = () => {
 		<div className="w-full h-16 md:h-20 flex items-center justify-between">
 			{/* LOGO */}
 			<Link to="/" className="group flex items-center gap-4 text-2xl font-bold">
-				<IKImage src="/blog/logo.png" className="" alt="Logo" w={32} h={32} />
-				<span className="group-hover:text-blue-900">ZainBlog</span>
+				<IKImage src="/blog/logo.jpg" className="rounded-full" alt="Logo" w={36} h={36} />
+				<span className="group-hover:text-blue-600">ZainBlog</span>
 			</Link>
 			{/* MOBILE MENU */}
 			<div className="md:hidden">
