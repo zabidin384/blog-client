@@ -21,10 +21,40 @@ body {
 	border: none !important;
 }
 
+.ql-container.ql-snow {
+	max-height: 75vh;
+	overflow-y: auto;
+}
+
 .ql-toolbar {
 	border: none !important;
 }
 
 .ql-editor {
 	border: none !important;
+	min-height: 60vh;
+}
+
+#content a {
+	@apply text-blue-800 hover:underline;
+}
+
+#content h1 {
+	@apply text-2xl md:text-3xl lg:text-4xl mb-4;
+}
+
+#content h2 {
+	@apply text-xl md:text-2xl lg:text-3xl mb-3;
+}
+
+#content h3 {
+	@apply text-lg md:text-xl lg:text-2xl mb-2;
+}
+
+#content ol {
+	@apply list-disc ml-4 pl-1;
+}
+
+#content li {
+	@apply mb-1;
 }
