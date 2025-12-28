@@ -3,14 +3,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { MdOutlineEmail } from "react-icons/md";
 import { useAuth } from "@clerk/clerk-react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 // Files
 import Loading from "./Loading";
 import PostListItem from "./PostListItem";
 
 function PostList({ type }) {
 	const [searchParams] = useSearchParams();
-	const { getToken } = useAuth();
+	const { getToken, isSignedIn, isLoaded } = useAuth();
 	const location = useLocation();
 
 	// Get All Posts
@@ -41,15 +41,30 @@ function PostList({ type }) {
 		},
 		initialPageParam: 1,
 		getNextPageParam: (lastPage, pages) => (lastPage?.hasMore ? pages?.length + 1 : undefined),
+		enabled: isLoaded && (type !== "saved" || isSignedIn),
 	});
 
-	if (isLoading)
+	if (!isLoaded || isLoading)
 		return (
 			<div className="mt-24">
 				<Loading height="h-full" />
 			</div>
 		);
-	if (error) return <div className="w-full flex items-center md:text-lg mb-4 mt-24">Failed get post list: {error?.message}</div>;
+	if (type === "saved" && isLoaded && !isSignedIn) {
+		return (
+			<div className="flex justify-center items-center h-[80vh] w-full md:text-lg">
+				<p>
+					Please{" "}
+					<Link to="/login" className="hover:underline font-semibold">
+						Login
+					</Link>{" "}
+					to see your saved posts!
+				</p>
+			</div>
+		);
+	}
+	if (error)
+		return <div className="w-full flex items-center justify-center md:text-lg mb-4 mt-24">Failed get post list: {error?.message}</div>;
 
 	const allPosts = data?.pages?.flatMap((page) => page?.posts) || [];
 
