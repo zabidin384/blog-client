@@ -24,7 +24,7 @@ const Navbar = () => {
 				{/* MOBILE LINK LIST */}
 				<div
 					className={`w-full h-[calc(100vh-64px)] flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 transition-all ease-in-out bg-blue-500 ${
-						open ? "-right-0" : "-right-[100%]"
+						open ? "-right-0" : "hidden"
 					}`}
 				>
 					<NavLink to="/" onClick={() => setOpen(false)}>
