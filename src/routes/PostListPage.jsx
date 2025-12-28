@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import PostList from "../components/PostList";
 import SideMenu from "../components/SideMenu";
 
-const PostListPage = () => {
+const PostListPage = ({ type }) => {
 	const [open, setOpen] = useState(false);
 	const [searchParams] = useSearchParams();
 	const category = searchParams.get("cat");
@@ -28,7 +28,7 @@ const PostListPage = () => {
 			</button>
 			<div className="flex flex-col-reverse gap-8 md:flex-row">
 				<div className="flex-1">
-					<PostList />
+					<PostList type={type} />
 				</div>
 				<div className={`${open ? "block" : "hidden"} md:block`}>
 					<SideMenu />
