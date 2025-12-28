@@ -6,8 +6,10 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Upload from "../components/Upload";
+import { PulseLoader } from "react-spinners";
 import { categories } from "../data";
+import Upload from "../components/Upload";
+import Loading from "../components/Loading";
 
 const WritePage = () => {
 	const { getToken } = useAuth();
@@ -40,9 +42,7 @@ const WritePage = () => {
 		},
 	});
 
-	if (!isLoaded) {
-		return <div className="w-full h-[80vh] flex justify-center items-center md:text-lg">Loading...</div>;
-	}
+	if (!isLoaded) return <Loading />;
 
 	if (isLoaded && role !== "admin") {
 		return <div className="w-full h-[80vh] flex justify-center items-center md:text-lg">You should login as author!</div>;
@@ -63,8 +63,10 @@ const WritePage = () => {
 		mutation.mutate(data);
 	};
 
+	if (mutation.isError) toast.error("Failed submit the post: " + mutation.error?.message);
+
 	return (
-		<div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] flex flex-col gap-6">
+		<div className="min-h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] flex flex-col gap-6">
 			<h1 className="text-xl font-semibold">Create a New Post</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-6 flex-1 mb-6">
 				<Upload type="image" setProgress={setProgress} setData={setCover}>
@@ -72,10 +74,10 @@ const WritePage = () => {
 						Add a cover image
 					</button>
 				</Upload>
-				<input type="text" name="title" placeholder="My Awesome Story" className="text-4xl font-bold bg-transparent outline-none" />
+				<input type="text" name="title" placeholder="My Post Title" className="text-4xl font-bold bg-transparent outline-none" />
 				<div className="flex items-center gap-4">
 					<label className="text-sm">Choose a category:</label>
-					<select name="category" id="" className="p-2 rounded-xl bg-white shadow-md">
+					<select name="category" id="" className="p-2 rounded-lg bg-white shadow-md cursor-pointer">
 						{categories.map((category, i) => (
 							<option key={i} value={category.value}>
 								{category.name}
@@ -103,11 +105,16 @@ const WritePage = () => {
 				</div>
 				<button
 					disabled={mutation.isPending || (progress > 0 && progress < 100)}
-					className="bg-blue-800 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium rounded-xl mt-4 p-2 w-36"
+					className="bg-blue-800 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium rounded-xl my-4 p-2 w-36"
 				>
-					{mutation.isPending ? "Loading..." : "Send"}
+					{mutation.isPending ? (
+						<span>
+							Sending <PulseLoader size={3} speedMultiplier={0.75} color="white" />
+						</span>
+					) : (
+						"Submit"
+					)}
 				</button>
-				{mutation.isError && <span>{mutation.error.message}</span>}
 			</form>
 		</div>
 	);
