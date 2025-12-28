@@ -4,7 +4,7 @@ import ReactQuill from "react-quill-new";
 import { toast } from "react-toastify";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { categories } from "../data";
@@ -45,7 +45,17 @@ const WritePage = () => {
 	if (!isLoaded) return <Loading />;
 
 	if (isLoaded && role !== "admin") {
-		return <div className="w-full h-[80vh] flex justify-center items-center md:text-lg">You should login as author!</div>;
+		return (
+			<div className="w-full h-[80vh] flex justify-center items-center md:text-lg">
+				<p>
+					Please{" "}
+					<Link to="/login" className="hover:underline font-semibold">
+						Login
+					</Link>{" "}
+					as Author to write a post!
+				</p>
+			</div>
+		);
 	}
 
 	const handleSubmit = (e) => {
