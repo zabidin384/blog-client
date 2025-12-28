@@ -1,19 +1,20 @@
+import { Link, NavLink } from "react-router-dom";
+import { MdLogin } from "react-icons/md";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { useState } from "react";
 import IKImage from "./IKImage";
-import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
-import { MdLogin } from "react-icons/md";
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<div className="w-full h-16 md:h-20 flex items-center justify-between">
+		<nav className="w-full h-16 md:h-20 flex items-center justify-between">
 			{/* LOGO */}
-			<Link to="/" className="group flex items-center gap-4 text-2xl font-bold">
-				<IKImage src="/blog/logo.jpg" className="rounded-full" alt="Logo" w={36} h={36} />
-				<span className="group-hover:text-blue-600">ZainBlog</span>
+			<Link to="/" className="group flex items-center gap-2 text-2xl font-bold">
+				<IKImage src="/blog/logo.jpg" className="rounded-full" alt="logo" w={36} h={36} />
+				<div className="group-hover:border-b-4 group-hover:border-blue-600 transition-all">ZainBlog</div>
 			</Link>
+
 			{/* MOBILE MENU */}
 			<div className="md:hidden">
 				{/* MOBILE BUTTON */}
@@ -26,41 +27,44 @@ const Navbar = () => {
 						open ? "-right-0" : "-right-[100%]"
 					}`}
 				>
-					<Link to="/">Home</Link>
-					<Link to="/posts">All Posts</Link>
-					<Link to="/#featured">Featured</Link>
-					<Link to="/#recents">Recents</Link>
-					<Link to="/login">
+					<NavLink to="/" onClick={() => setOpen(false)}>
+						Home
+					</NavLink>
+					<NavLink to="/posts" onClick={() => setOpen(false)}>
+						All Posts
+					</NavLink>
+					<NavLink to="/saved-posts" onClick={() => setOpen(false)}>
+						Saved Posts
+					</NavLink>
+					<NavLink to="/login" onClick={() => setOpen(false)}>
 						<button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">Login 👋</button>
-					</Link>
+					</NavLink>
 				</div>
 			</div>
+
 			{/* DESKTOP MENU */}
 			<div className="hidden md:flex items-center gap-8 xl:gap-12 font-medium">
-				<Link className="hover:underline" to="/">
+				<NavLink className="hover:-translate-y-1 transition-all duration-300 hover:border-b hover:border-blue-600" to="/">
 					Home
-				</Link>
-				<Link className="hover:underline" to="/posts">
+				</NavLink>
+				<NavLink className="hover:-translate-y-1 transition-all duration-300 hover:border-b hover:border-blue-600" to="/posts">
 					All Posts
-				</Link>
-				<a className="hover:underline" href="/#featured">
-					Featured
-				</a>
-				<a className="hover:underline" href="/#recents">
-					Recents
-				</a>
+				</NavLink>
+				<NavLink className="hover:-translate-y-1 transition-all duration-300 hover:border-b hover:border-blue-600" to="/saved-posts">
+					Saved Posts
+				</NavLink>
 				<SignedOut>
-					<Link to="/login">
+					<NavLink to="/login">
 						<button className="py-2 px-4 rounded-3xl bg-blue-800 text-white hover:bg-blue-900 flex items-center gap-2">
 							<MdLogin className="w-5 h-5" /> Login
 						</button>
-					</Link>
+					</NavLink>
 				</SignedOut>
 				<SignedIn>
 					<UserButton />
 				</SignedIn>
 			</div>
-		</div>
+		</nav>
 	);
 };
 
