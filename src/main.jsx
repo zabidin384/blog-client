@@ -1,19 +1,15 @@
 import "./index.css";
+import { Suspense } from "react";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { ToastContainer } from "react-toastify";
+import Loading from "./components/Loading.jsx";
+import { Homepage, LoginPage, MainLayout, PostListPage, RegisterPage, SinglePostPage, WritePage } from "./router.js";
 
 // Pages
-import Homepage from "./routes/Homepage.jsx";
-import LoginPage from "./routes/LoginPage.jsx";
-import MainLayout from "./layouts/MainLayout.jsx";
-import PostListPage from "./routes/PostListPage.jsx";
-import RegisterPage from "./routes/RegisterPage.jsx";
-import SinglePostPage from "./routes/SinglePostPage.jsx";
-import WritePage from "./routes/WritePage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -27,13 +23,70 @@ const router = createBrowserRouter([
 	{
 		element: <MainLayout />,
 		children: [
-			{ path: "/", element: <Homepage /> },
-			{ path: "/posts", element: <PostListPage /> },
-			{ path: "/:slug", element: <SinglePostPage /> },
-			{ path: "/write", element: <WritePage /> },
-			{ path: "/login", element: <LoginPage /> },
-			{ path: "/register", element: <RegisterPage /> },
-			{ path: "/:slug", element: <PostListPage /> },
+			{
+				path: "/",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<Homepage />
+					</Suspense>
+				),
+			},
+			{
+				path: "/posts",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<PostListPage />
+					</Suspense>
+				),
+			},
+			{
+				path: "/saved-posts",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<PostListPage type="saved" />
+					</Suspense>
+				),
+			},
+			{
+				path: "/:slug",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<SinglePostPage />
+					</Suspense>
+				),
+			},
+			{
+				path: "/write",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<WritePage />
+					</Suspense>
+				),
+			},
+			{
+				path: "/login",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<LoginPage />
+					</Suspense>
+				),
+			},
+			{
+				path: "/register",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<RegisterPage />
+					</Suspense>
+				),
+			},
+			{
+				path: "/:slug",
+				element: (
+					<Suspense fallback={<Loading />}>
+						<PostListPage />
+					</Suspense>
+				),
+			},
 		],
 	},
 ]);
