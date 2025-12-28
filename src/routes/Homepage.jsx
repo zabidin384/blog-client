@@ -12,14 +12,18 @@ const Homepage = () => {
 				<span>•</span>
 				<span>Blogs and Articles</span>
 			</div>
+
 			{/* INTRODUCTION */}
 			<div className="flex items-center justify-between">
 				{/* Titles */}
 				<div className="">
 					<h1 className="text-gray-800 text-2xl sm:text-3xl lg:text-5xl font-bold">
-						Sharing Ideas, Experiences, and Journeys in the Digital World
+						Sharing Knowledge, Facts, and Stories in the Digital World
 					</h1>
-					<p className="mt-2 sm:mt-4 lg:mt-8 text-md md:text-xl">Sharing about technology, science, news and things I read and learn.</p>
+					<p className="mt-2 sm:mt-4 lg:mt-8 text-md md:text-xl italic">
+						A space where I share insights on science, history, and health, along with interesting things I read and learn. My goal is to
+						turn curiosity into knowledge by exploring the stories and facts that shape our world.
+					</p>
 				</div>
 				{/* Animated Button */}
 				<Link to="write" className="hidden md:block relative">
@@ -42,13 +46,16 @@ const Homepage = () => {
 					</button>
 				</Link>
 			</div>
+
 			{/* CATEGORIES */}
 			<MainCategories />
+
 			{/* FEATURED POSTS */}
 			<FeaturedPosts />
+
 			{/* POST LIST */}
 			<div id="recents">
-				<h1 className="mt-8 mb-4 text-xl sm:text-2xl lg:text-3xl font-bold">Recent Posts:</h1>
+				<h2 className="mt-8 mb-4 text-xl sm:text-2xl lg:text-3xl font-bold">Recent Posts:</h2>
 				<PostList />
 			</div>
 		</div>
