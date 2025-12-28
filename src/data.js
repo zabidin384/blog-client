@@ -1,19 +1,19 @@
 export const categories = [
 	{
-		name: "Technology",
-		value: "technology",
+		name: "Science",
+		value: "science",
 	},
 	{
-		name: "Sciences",
-		value: "sciences",
+		name: "History",
+		value: "history",
+	},
+	{
+		name: "Health",
+		value: "health",
 	},
 	{
 		name: "News",
 		value: "news",
-	},
-	{
-		name: "Food",
-		value: "food",
 	},
 	{
 		name: "Traveling",
