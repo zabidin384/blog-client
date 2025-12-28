@@ -1,10 +1,11 @@
-import IKImage from "./IKImage";
+import axios from "axios";
 import { format } from "timeago.js";
 import { MdDelete } from "react-icons/md";
+import { PulseLoader } from "react-spinners";
+import { toast } from "react-toastify";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "react-toastify";
+import IKImage from "./IKImage";
 
 const Comment = ({ comment, postId }) => {
 	const { getToken } = useAuth();
@@ -28,13 +29,13 @@ const Comment = ({ comment, postId }) => {
 	return (
 		<div className="p-4 bg-slate-50 rounded-xl">
 			<div className="flex items-center gap-4">
-				{comment.user.img && <IKImage src={comment.user.img} className="w-10 h-10 rounded-full object-cover" w={40} />}
+				{comment.user.img && <IKImage src={comment.user.img} className="w-10 h-10 rounded-full object-cover" w={40} alt="user" />}
 				<span className="font-medium">{comment.user.username}</span>
 				<span className="text-sm text-gray-500">{format(comment.createdAt)}</span>
 				{user && (comment.user.username === user.username || role === "admin") && (
 					<>
-						<MdDelete size={24} onClick={() => mutation.mutate()} className="cursor-pointer text-red-500 hover:text-red-300" />
-						{mutation.isPending && <span>(Delete in progress...)</span>}
+						<MdDelete size={24} onClick={() => mutation.mutate()} className="cursor-pointer hover:opacity-80 -mr-4" />
+						<PulseLoader loading={mutation.isPending} size={5} speedMultiplier={0.75} />
 					</>
 				)}
 			</div>
